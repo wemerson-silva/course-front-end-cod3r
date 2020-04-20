@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header title="Courser Cod3r"/>
+    <Header title="Courser Cod3r" :hideToggle="false"/>
     <Menu />
     <Content />
     <Footer />
