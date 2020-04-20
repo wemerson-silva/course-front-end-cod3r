@@ -1,15 +1,40 @@
 <template>
-	<div id="app">
-		<h1>Versão Inicial</h1>
-	</div>
+  <div id="app">
+    <Header title="Courser Cod3r"/>
+    <Menu />
+    <Content />
+    <Footer />
+  </div>
 </template>
 
 <script>
+import Header from "./components/template/Header";
+import Menu from "./components/template/Menu";
+import Content from "./components/template/Content";
+import Footer from "./components/template/Footer";
+
 export default {
-	name: "App",
-}
+  name: "App",
+  components: { Header, Menu, Content, Footer }
+};
 </script>
 
 <style>
-
-</style>
+* {
+  font-family: "Lato";
+  margin: 0;
+  padding: 0;
+}
+#app {
+  -webkit-font-smoothing: antialiased;
+  -monz-font-smoothing: grayscale;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 60px 1fr 40px;
+  grid-auto-columns: 300px 1fr;
+  grid-template-areas:
+    "header header"
+    "menu content"
+    "menu footer";
+}
+</style> 
