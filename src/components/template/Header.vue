@@ -3,14 +3,19 @@
     <a class="toggle" @click="toggleMenu" v-if="!hideToggle">
       <i class="fa fa-lg" :class="icon"></i>
     </a>
-    <h1 class="title">{{title}}</h1>
+    <h1 class="title">
+      <router-link to="/">
+        <i class="fa fa-home"></i>
+        {{title}}
+      </router-link>
+    </h1>
 
-    <UserDropdown v-if="!hideUserDropdown"/>
+    <UserDropdown v-if="!hideUserDropdown" />
   </header>
 </template>
 
 <script>
-import UserDropdown from './UserDropDown';
+import UserDropdown from "./UserDropDown";
 export default {
   name: "Header",
   components: { UserDropdown },
@@ -21,12 +26,14 @@ export default {
   },
   computed: {
     icon() {
-      return this.$store.state.isMenuVisible ?"fa-angle-left" : "fa-angle-down";
+      return this.$store.state.isMenuVisible
+        ? "fa-angle-left"
+        : "fa-angle-down";
     }
   },
   methods: {
     toggleMenu() {
-      this.$store.commit('toggleMenu');
+      this.$store.commit("toggleMenu");
     }
   }
 };
