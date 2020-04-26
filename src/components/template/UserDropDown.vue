@@ -49,7 +49,7 @@ export default {
 }
 .user-dropdown-img > img {
     max-height: 37px;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 .user-dropdown-content {
     position: absolute;
