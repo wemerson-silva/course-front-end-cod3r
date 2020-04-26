@@ -69,6 +69,7 @@
       </b-row>
     </b-form>
     <b-table class="mt-5" hover striped :items="users" :fields="fields">
+
       <template slot="actions" slot-scope="data">
         <b-button variant="warning" @click="loadUser(data.item)" class="mr-2">
           <i class="fa fa-pencil"></i>
@@ -102,7 +103,7 @@ export default {
           key: "admin",
           label: "Administrador",
           sortable: true,
-          formatter: value => (value ? "sim" : "não")
+          formatter: value => (value ? 'sim' : "não")
         },
         { key: "actions", label: "Ações" }
       ]
@@ -119,7 +120,6 @@ export default {
       this.mode = "save";
       this.user = {};
       this.loadUsers();
-      showSucess("Resetado com Sucesso.");
     },
     save() {
       const method = this.user.id ? "put" : "post";
