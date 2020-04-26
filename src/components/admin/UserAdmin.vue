@@ -9,6 +9,7 @@
               id="user-name"
               type="text"
               v-model="user.name"
+              :readonly="mode === 'remove'"
               required
               placeholder="Informe o nome do usuário."
             />
@@ -21,16 +22,22 @@
               id="user-email"
               type="text"
               v-model="user.email"
+              :readonly="mode === 'remove'"
               required
               placeholder="Informe o email do usuário."
             />
           </b-form-group>
         </b-col>
       </b-row>
-      <b-form-checkbox id="user-admin" v-model="user.admin" class="mt-3 mb-3">Administrador ?</b-form-checkbox>
-      <b-row>
+      <b-form-checkbox
+        id="user-admin"
+        v-model="user.admin"
+        class="mt-3 mb-3"
+        v-show="mode === 'save'"
+      >Administrador ?</b-form-checkbox>
+      <b-row v-show="mode === 'save'">
         <b-col md="6" sm="12">
-          <b-form-group label="Nome:" label-for="user-password">
+          <b-form-group label="Senha:" label-for="user-password">
             <b-form-input
               id="user-password"
               type="password"
@@ -42,7 +49,7 @@
         </b-col>
 
         <b-col md="6" sm="12">
-          <b-form-group label="E-mail:" label-for="user-confirm-password">
+          <b-form-group label="Confirme a Senha:" label-for="user-confirm-password">
             <b-form-input
               id="user-confirm-password"
               type="password"
@@ -53,11 +60,25 @@
           </b-form-group>
         </b-col>
       </b-row>
-      <b-button variant="primary" v-if="mode === 'save'" @click="save">Salvar</b-button>
-      <b-button variant="danger" v-if="mode === 'remove'" @click="remove">Excluir</b-button>
-      <b-button class="ml-2" @click="reset">cancelar</b-button>
+      <b-row>
+        <b-col>
+          <b-button variant="primary" v-if="mode === 'save'" @click="save">Salvar</b-button>
+          <b-button variant="danger" v-if="mode === 'remove'" @click="remove">Excluir</b-button>
+          <b-button class="ml-2" @click="reset">cancelar</b-button>
+        </b-col>
+      </b-row>
     </b-form>
-    <b-table class="mt-5" hover striped :items="users" :fields="fields"></b-table>
+    <b-table class="mt-5" hover striped :items="users" :fields="fields">
+      <template slot="actions" slot-scope="data">
+        <b-button variant="warning" @click="loadUser(data.item)" class="mr-2">
+          <i class="fa fa-pencil"></i>
+        </b-button>
+
+        <b-button variant="danger" @click="loadUser(data.item, 'remove')" class="mr-2">
+          <i class="fa fa-trash"></i>
+        </b-button>
+      </template>
+    </b-table>
   </div>
 </template>
 
@@ -110,15 +131,21 @@ export default {
           this.reset();
         })
         .catch(showError);
+        console.log(this.user)
     },
     remove() {
       const id = this.user.id;
-      axios.delete(`${baseApiUrl}/users/${id}`)
-      .then(() => {
-        this.$toasted.global.defaultSuccess();
-        this.reset();
-      })
-      .catch(showError);
+      axios
+        .delete(`${baseApiUrl}/users/${id}`)
+        .then(() => {
+          this.$toasted.global.defaultSuccess();
+          this.reset();
+        })
+        .catch(showError);
+    },
+    loadUser(user, mode = "save") {
+      this.mode = mode;
+      this.user = { ...user };
     }
   },
   mounted() {
