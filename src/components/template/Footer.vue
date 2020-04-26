@@ -22,5 +22,8 @@ export default {
   align-items: center;
   justify-content: flex-end;
   padding-right: 10px;
+  display: flex;
+  items-align:center
 }
+
 </style>
