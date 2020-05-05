@@ -29,6 +29,7 @@
           </b-form-group>
         </b-col>
       </b-row>
+
       <b-form-checkbox
         id="user-admin"
         v-model="user.admin"
@@ -68,8 +69,8 @@
         </b-col>
       </b-row>
     </b-form>
-    <b-table class="mt-5" hover striped :items="users" :fields="fields">
 
+    <b-table class="mt-5" hover striped :items="users" :fields="fields">
       <template slot="actions" slot-scope="data">
         <b-button variant="warning" @click="loadUser(data.item)" class="mr-2">
           <i class="fa fa-pencil"></i>
@@ -103,7 +104,7 @@ export default {
           key: "admin",
           label: "Administrador",
           sortable: true,
-          formatter: value => (value ? 'sim' : "não")
+          formatter: value => (value ? "sim" : "não")
         },
         { key: "actions", label: "Ações" }
       ]
@@ -114,8 +115,10 @@ export default {
       const url = `${baseApiUrl}/users`;
       axios.get(url).then(res => {
         this.users = res.data;
-      });
-    },
+        this.connect = { axiosConnection: true };
+      }).catch(error => this.connect = { axiosConnection: false });
+    }
+    ,
     reset() {
       this.mode = "save";
       this.user = {};
@@ -131,7 +134,7 @@ export default {
           this.reset();
         })
         .catch(showError);
-        console.log(this.user)
+      console.log(this.user);
     },
     remove() {
       const id = this.user.id;
