@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { showError, showSucess } from "@/global/global";
+import { showError } from "@/global/global";
 import { baseApiUrl } from "@/api/api";
 import axios from "axios";
 
@@ -116,7 +116,7 @@ export default {
       axios.get(url).then(res => {
         this.users = res.data;
         this.connect = { axiosConnection: true };
-      }).catch(error => this.connect = { axiosConnection: false });
+      });
     }
     ,
     reset() {
@@ -134,7 +134,6 @@ export default {
           this.reset();
         })
         .catch(showError);
-      console.log(this.user);
     },
     remove() {
       const id = this.user.id;
@@ -158,4 +157,5 @@ export default {
 </script>
 
 <style>
+
 </style>

@@ -2,19 +2,15 @@
   <div class="admin-pages">
     <PageTitle icon="fa fa-cogs" main="Administração" sub="Ferramentas Administrativas" />
     <div class="admin-pages-tabs">
+
       <b-card no-body>
-        <b-tabs card>
-          <b-tab title="Artigo" active>
-            <ArticleAdmin />
-          </b-tab>
-          <b-tab title="Categorias">
-            <CategoryAdmin />
-          </b-tab>
-          <b-tab title="Usuarios">
-            <UserAdmin />
-          </b-tab>
-        </b-tabs>
-      </b-card>
+    <b-tabs pills card vertical>
+      <b-tab title="Usuarios" active><UserAdmin/></b-tab>
+      <b-tab title="Categorias"><CategoryAdmin/></b-tab>
+      <b-tab title="Artigos"><ArticleAdmin/></b-tab>
+    </b-tabs>
+  </b-card>
+  
     </div>
   </div>
 </template>
@@ -32,4 +28,11 @@ export default {
 </script>
 
 <style>
+.custom-control-input,
+.custom-control-input::before,
+.custom-control-input:focus {
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
 </style>
